@@ -1,13 +1,13 @@
 version: "3.8"
 
 services:
-  free5gc-upf:
+  upf:
     container_name: upf
     image: free5gc/upf
     build:
       context: ./nf_upf
       args:
-        DEBUG_TOOLS: "false"
+        DEBUG_TOOLS: "true"
     command: bash -c "./upf-iptables.sh && ./upf -c ./config/upfcfg.yaml"
     volumes:
       - ./config/upfcfg.yaml:/free5gc/config/upfcfg.yaml
@@ -34,13 +34,13 @@ services:
         aliases:
           - db
 
-  free5gc-nrf:
+  nrf:
     container_name: nrf
     image: free5gc/nrf
     build:
       context: ./nf_nrf
       args:
-        DEBUG_TOOLS: "false"
+        DEBUG_TOOLS: "true"
     command: ./nrf -c ./config/nrfcfg.yaml
     expose:
       - "8000"
@@ -58,13 +58,13 @@ services:
     depends_on:
       - db
 
-  free5gc-amf:
+  amf:
     container_name: amf
     image: free5gc/amf
     build:
       context: ./nf_amf
       args:
-        DEBUG_TOOLS: "false"
+        DEBUG_TOOLS: "true"
     command: ./amf -c ./config/amfcfg.yaml
     expose:
       - "8000"
@@ -79,15 +79,15 @@ services:
         aliases:
           - amf.srlabs.mobi
     depends_on:
-      - free5gc-nrf
+      - nrf
 
-  free5gc-ausf:
+  ausf:
     container_name: ausf
     image: free5gc/ausf
     build:
       context: ./nf_ausf
       args:
-        DEBUG_TOOLS: "false"
+        DEBUG_TOOLS: "true"
     command: ./ausf -c ./config/ausfcfg.yaml
     expose:
       - "8000"
@@ -102,15 +102,15 @@ services:
         aliases:
           - ausf.srlabs.mobi
     depends_on:
-      - free5gc-nrf
+      - nrf
 
-  free5gc-nssf:
+  nssf:
     container_name: nssf
     image: free5gc/nssf
     build:
       context: ./nf_nssf
       args:
-        DEBUG_TOOLS: "false"
+        DEBUG_TOOLS: "true"
     command: ./nssf -c ./config/nssfcfg.yaml
     expose:
       - "8000"
@@ -125,15 +125,15 @@ services:
         aliases:
           - nssf.srlabs.mobi
     depends_on:
-      - free5gc-nrf
+      - nrf
 
-  free5gc-pcf:
+  pcf:
     container_name: pcf
     image: free5gc/pcf
     build:
       context: ./nf_pcf
       args:
-        DEBUG_TOOLS: "false"
+        DEBUG_TOOLS: "true"
     command: ./pcf -c ./config/pcfcfg.yaml
     expose:
       - "8000"
@@ -148,15 +148,15 @@ services:
         aliases:
           - pcf.srlabs.mobi
     depends_on:
-      - free5gc-nrf
+      - nrf
 
-  free5gc-smf:
+  smf:
     container_name: smf
     image: free5gc/smf
     build:
       context: ./nf_smf
       args:
-        DEBUG_TOOLS: "false"
+        DEBUG_TOOLS: "true"
     command: ./smf -c ./config/smfcfg.yaml -u ./config/uerouting.yaml
     expose:
       - "8000"
@@ -172,16 +172,16 @@ services:
         aliases:
           - smf.srlabs.mobi
     depends_on:
-      - free5gc-nrf
-      - free5gc-upf
+      - nrf
+      - upf
 
-  free5gc-udm:
+  udm:
     container_name: udm
     image: free5gc/udm
     build:
       context: ./nf_udm
       args:
-        DEBUG_TOOLS: "false"
+        DEBUG_TOOLS: "true"
     command: ./udm -c ./config/udmcfg.yaml
     expose:
       - "8000"
@@ -197,15 +197,15 @@ services:
           - udm.srlabs.mobi
     depends_on:
       - db
-      - free5gc-nrf
+      - nrf
 
-  free5gc-udr:
+  udr:
     container_name: udr
     image: free5gc/udr
     build:
       context: ./nf_udr
       args:
-        DEBUG_TOOLS: "false"
+        DEBUG_TOOLS: "true"
     command: ./udr -c ./config/udrcfg.yaml
     expose:
       - "8000"
@@ -222,15 +222,15 @@ services:
           - udr.srlabs.mobi
     depends_on:
       - db
-      - free5gc-nrf
+      - nrf
 
-  free5gc-chf:
+  chf:
     container_name: chf
     image: free5gc/chf
     build:
       context: ./nf_chf
       args:
-        DEBUG_TOOLS: "false"
+        DEBUG_TOOLS: "true"
     command: ./chf -c ./config/chfcfg.yaml
     expose:
       - "8000"
@@ -248,16 +248,16 @@ services:
           - chf.srlabs.mobi
     depends_on:
       - db
-      - free5gc-nrf
-      - free5gc-webui
+      - nrf
+      - webui
 
-  free5gc-n3iwf:
+  n3iwf:
     container_name: n3iwf
     image: free5gc/n3iwf
     build:
       context: ./nf_n3iwf
       args:
-        DEBUG_TOOLS: "false"
+        DEBUG_TOOLS: "true"
     command: ./n3iwf -c ./config/n3iwfcfg.yaml
     volumes:
       - ./config/n3iwfcfg.yaml:/free5gc/config/n3iwfcfg.yaml
@@ -272,17 +272,17 @@ services:
         aliases:
           - n3iwf.srlabs.mobi
     depends_on:
-      - free5gc-amf
-      - free5gc-smf
-      - free5gc-upf
+      - amf
+      - smf
+      - upf
 
-  free5gc-tngf:
+  tngf:
     container_name: tngf
     image: free5gc/tngf
     build:
       context: ./nf_tngf
       args:
-        DEBUG_TOOLS: "false"
+        DEBUG_TOOLS: "true"
     command: ./tngf -c ./config/tngfcfg.yaml
     volumes:
       - ./config/tngfcfg.yaml:/free5gc/config/tngfcfg.yaml
@@ -293,17 +293,17 @@ services:
       - NET_ADMIN
     network_mode: host
     depends_on:
-      - free5gc-amf
-      - free5gc-smf
-      - free5gc-upf
+      - amf
+      - smf
+      - upf
 
-  free5gc-nef:
+  nef:
     container_name: nef
     image: free5gc/nef
     build:
       context: ./nf_nef
       args:
-        DEBUG_TOOLS: "false"
+        DEBUG_TOOLS: "true"
     command: ./nef -c ./config/nefcfg.yaml
     expose:
       - "8000"
@@ -319,15 +319,15 @@ services:
           - nef.srlabs.mobi
     depends_on:
       - db
-      - free5gc-nrf
+      - nrf
 
-  free5gc-webui:
+  webui:
     container_name: webui
     image: free5gc/webui
     build:
       context: ./webui
       args:
-        DEBUG_TOOLS: "false"
+        DEBUG_TOOLS: "true"
     command: ./webui -c ./config/webuicfg.yaml
     expose:
       - "2121"
@@ -344,50 +344,51 @@ services:
       - "5000:5000"
     depends_on:
       - db
-      - free5gc-nrf
+      - nrf
 
-#  ueransim:
-#    container_name: ueransim
-#    image: free5gc/ueransim
-#    build:
-#      context: ./ueransim
-#    command: ./nr-gnb -c ./config/gnbcfg.yaml
-#    volumes:
-#      - ./config/gnbcfg.yaml:/ueransim/config/gnbcfg.yaml
-#      - ./config/uecfg.yaml:/ueransim/config/uecfg.yaml
-#    cap_add:
-#      - NET_ADMIN
-#    devices:
-#      - "/dev/net/tun"
-#    networks:
-#      free5gc:
-#      ipv4_address: 10.100.200.128
-#        aliases:
-#          - gnb.srlabs.mobi
-#    depends_on:
-#      - free5gc-amf
-#      - free5gc-upf
+  ueransim:
+    container_name: ueransim
+    image: free5gc/ueransim
+    build:
+      context: ./ueransim
+    command: ./nr-gnb -c ./config/gnbcfg.yaml
+    volumes:
+      - ./config/gnbcfg.yaml:/ueransim/config/gnbcfg.yaml
+      - ./config/uecfg.yaml:/ueransim/config/uecfg.yaml
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - "/dev/net/tun"
+    networks:
+      free5gc:
+        ipv4_address: 10.100.200.254
+        aliases:
+          - gnb.srlabs.mobi
+    depends_on:
+      - amf
+      - upf
 
-#  n3iwue:
-#    container_name: n3iwue
-#    image: free5gc/n3iwue
-#    build:
-#      context: ./n3iwue
-#    command: bash -c "ip route del default && ip route add default via 10.100.200.1 dev eth0 metric 203 && sleep infinity"
-#    volumes:
-#      - ./config/n3uecfg.yaml:/n3iwue/config/n3ue.yaml
-#    cap_add:
-#      - NET_ADMIN
-#    devices:
-#      - "/dev/net/tun"
-#    networks:
-#      free5gc:
-#        ipv4_address: 10.100.200.129
-#        aliases:
-#          - n3ue.srlabs.mobi
-#    depends_on:
-#      - free5gc-n3iwf
-
+  n3iwue:
+    container_name: n3iwue
+    image: free5gc/n3iwue
+    build:
+      context: ./n3iwue
+    command: bash -c "ip route del default && ip route add default via 10.100.200.1 dev eth0 metric 203 && sleep infinity"
+    volumes:
+      - ./config/n3uecfg.yaml:/n3iwue/config/n3ue.yaml
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - "/dev/net/tun"
+    networks:
+      free5gc:
+        ipv4_address: 10.100.200.253
+        aliases:
+          - n3ue.srlabs.mobi
+    depends_on:
+      - n3iwf
+      
+      
 networks:
   free5gc:
     ipam:
