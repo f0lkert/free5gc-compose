@@ -3,6 +3,7 @@ version: "3.8"
 services:
   free5gc-upf:
     container_name: upf
+    image: free5gc/upf
     build:
       context: ./nf_upf
       args:
@@ -14,9 +15,10 @@ services:
     cap_add:
       - NET_ADMIN
     networks:
-      privnet:
+      free5gc:
+        ipv4_address: 10.100.200.32
         aliases:
-          - upf.free5gc.org
+          - upf.srlabs.mobi
 
   db:
     container_name: mongodb
@@ -25,14 +27,16 @@ services:
     expose:
       - "27017"
     volumes:
-      - dbdata:/data/db
+      - free5gc:/data/db
     networks:
-      privnet:
+      free5gc:
+        ipv4_address: 10.100.200.64
         aliases:
           - db
 
   free5gc-nrf:
     container_name: nrf
+    image: free5gc/nrf
     build:
       context: ./nf_nrf
       args:
@@ -47,14 +51,16 @@ services:
       DB_URI: mongodb://db/free5gc
       GIN_MODE: release
     networks:
-      privnet:
+      free5gc:
+        ipv4_address: 10.100.200.16
         aliases:
-          - nrf.free5gc.org
+          - nrf.srlabs.mobi
     depends_on:
       - db
 
   free5gc-amf:
     container_name: amf
+    image: free5gc/amf
     build:
       context: ./nf_amf
       args:
@@ -68,15 +74,16 @@ services:
     environment:
       GIN_MODE: release
     networks:
-      privnet:
-        ipv4_address: 10.100.200.16
+      free5gc:
+        ipv4_address: 10.100.200.35
         aliases:
-          - amf.free5gc.org
+          - amf.srlabs.mobi
     depends_on:
       - free5gc-nrf
 
   free5gc-ausf:
     container_name: ausf
+    image: free5gc/ausf
     build:
       context: ./nf_ausf
       args:
@@ -90,14 +97,16 @@ services:
     environment:
       GIN_MODE: release
     networks:
-      privnet:
+      free5gc:
+        ipv4_address: 10.100.200.36
         aliases:
-          - ausf.free5gc.org
+          - ausf.srlabs.mobi
     depends_on:
       - free5gc-nrf
 
   free5gc-nssf:
     container_name: nssf
+    image: free5gc/nssf
     build:
       context: ./nf_nssf
       args:
@@ -111,14 +120,16 @@ services:
     environment:
       GIN_MODE: release
     networks:
-      privnet:
+      free5gc:
+        ipv4_address: 10.100.200.37
         aliases:
-          - nssf.free5gc.org
+          - nssf.srlabs.mobi
     depends_on:
       - free5gc-nrf
 
   free5gc-pcf:
     container_name: pcf
+    image: free5gc/pcf
     build:
       context: ./nf_pcf
       args:
@@ -132,14 +143,16 @@ services:
     environment:
       GIN_MODE: release
     networks:
-      privnet:
+      free5gc:
+        ipv4_address: 10.100.200.38
         aliases:
-          - pcf.free5gc.org
+          - pcf.srlabs.mobi
     depends_on:
       - free5gc-nrf
 
   free5gc-smf:
     container_name: smf
+    image: free5gc/smf
     build:
       context: ./nf_smf
       args:
@@ -154,15 +167,17 @@ services:
     environment:
       GIN_MODE: release
     networks:
-      privnet:
+      free5gc:
+        ipv4_address: 10.100.200.39
         aliases:
-          - smf.free5gc.org
+          - smf.srlabs.mobi
     depends_on:
       - free5gc-nrf
       - free5gc-upf
 
   free5gc-udm:
     container_name: udm
+    image: free5gc/udm
     build:
       context: ./nf_udm
       args:
@@ -176,15 +191,17 @@ services:
     environment:
       GIN_MODE: release
     networks:
-      privnet:
+      free5gc:
+        ipv4_address: 10.100.200.40
         aliases:
-          - udm.free5gc.org
+          - udm.srlabs.mobi
     depends_on:
       - db
       - free5gc-nrf
 
   free5gc-udr:
     container_name: udr
+    image: free5gc/udr
     build:
       context: ./nf_udr
       args:
@@ -199,15 +216,17 @@ services:
       DB_URI: mongodb://db/free5gc
       GIN_MODE: release
     networks:
-      privnet:
+      free5gc:
+        ipv4_address: 10.100.200.41
         aliases:
-          - udr.free5gc.org
+          - udr.srlabs.mobi
     depends_on:
       - db
       - free5gc-nrf
 
   free5gc-chf:
     container_name: chf
+    image: free5gc/chf
     build:
       context: ./nf_chf
       args:
@@ -223,9 +242,10 @@ services:
       DB_URI: mongodb://db/free5gc
       GIN_MODE: release
     networks:
-      privnet:
+      free5gc:
+        ipv4_address: 10.100.200.42
         aliases:
-          - chf.free5gc.org
+          - chf.srlabs.mobi
     depends_on:
       - db
       - free5gc-nrf
@@ -233,6 +253,7 @@ services:
 
   free5gc-n3iwf:
     container_name: n3iwf
+    image: free5gc/n3iwf
     build:
       context: ./nf_n3iwf
       args:
@@ -246,10 +267,10 @@ services:
     cap_add:
       - NET_ADMIN
     networks:
-      privnet:
-        ipv4_address: 10.100.200.15
+      free5gc:
+        ipv4_address: 10.100.200.43
         aliases:
-          - n3iwf.free5gc.org
+          - n3iwf.srlabs.mobi
     depends_on:
       - free5gc-amf
       - free5gc-smf
@@ -257,6 +278,7 @@ services:
 
   free5gc-tngf:
     container_name: tngf
+    image: free5gc/tngf
     build:
       context: ./nf_tngf
       args:
@@ -277,6 +299,7 @@ services:
 
   free5gc-nef:
     container_name: nef
+    image: free5gc/nef
     build:
       context: ./nf_nef
       args:
@@ -290,15 +313,17 @@ services:
     environment:
       GIN_MODE: release
     networks:
-      privnet:
+      free5gc:
+        ipv4_address: 10.100.200.44
         aliases:
-          - nef.free5gc.org
+          - nef.srlabs.mobi
     depends_on:
       - db
       - free5gc-nrf
 
   free5gc-webui:
     container_name: webui
+    image: free5gc/webui
     build:
       context: ./webui
       args:
@@ -311,56 +336,60 @@ services:
     environment:
       - GIN_MODE=release
     networks:
-      privnet:
+      free5gc:
+        ipv4_address: 10.100.200.65
         aliases:
-          - webui
+          - webui.srlabs.mobi
     ports:
       - "5000:5000"
     depends_on:
       - db
       - free5gc-nrf
 
-  ueransim:
-    container_name: ueransim
-    build:
-      context: ./ueransim
-    command: ./nr-gnb -c ./config/gnbcfg.yaml
-    volumes:
-      - ./config/gnbcfg.yaml:/ueransim/config/gnbcfg.yaml
-      - ./config/uecfg.yaml:/ueransim/config/uecfg.yaml
-    cap_add:
-      - NET_ADMIN
-    devices:
-      - "/dev/net/tun"
-    networks:
-      privnet:
-        aliases:
-          - gnb.free5gc.org
-    depends_on:
-      - free5gc-amf
-      - free5gc-upf
+#  ueransim:
+#    container_name: ueransim
+#    image: free5gc/ueransim
+#    build:
+#      context: ./ueransim
+#    command: ./nr-gnb -c ./config/gnbcfg.yaml
+#    volumes:
+#      - ./config/gnbcfg.yaml:/ueransim/config/gnbcfg.yaml
+#      - ./config/uecfg.yaml:/ueransim/config/uecfg.yaml
+#    cap_add:
+#      - NET_ADMIN
+#    devices:
+#      - "/dev/net/tun"
+#    networks:
+#      free5gc:
+#      ipv4_address: 10.100.200.128
+#        aliases:
+#          - gnb.srlabs.mobi
+#    depends_on:
+#      - free5gc-amf
+#      - free5gc-upf
 
-  n3iwue:
-    container_name: n3iwue
-    build:
-      context: ./n3iwue
-    command: bash -c "ip route del default && ip route add default via 10.100.200.1 dev eth0 metric 203 && sleep infinity"
-    volumes:
-      - ./config/n3uecfg.yaml:/n3iwue/config/n3ue.yaml
-    cap_add:
-      - NET_ADMIN
-    devices:
-      - "/dev/net/tun"
-    networks:
-      privnet:
-        ipv4_address: 10.100.200.203
-        aliases:
-          - n3ue.free5gc.org
-    depends_on:
-      - free5gc-n3iwf
+#  n3iwue:
+#    container_name: n3iwue
+#    image: free5gc/n3iwue
+#    build:
+#      context: ./n3iwue
+#    command: bash -c "ip route del default && ip route add default via 10.100.200.1 dev eth0 metric 203 && sleep infinity"
+#    volumes:
+#      - ./config/n3uecfg.yaml:/n3iwue/config/n3ue.yaml
+#    cap_add:
+#      - NET_ADMIN
+#    devices:
+#      - "/dev/net/tun"
+#    networks:
+#      free5gc:
+#        ipv4_address: 10.100.200.129
+#        aliases:
+#          - n3ue.srlabs.mobi
+#    depends_on:
+#      - free5gc-n3iwf
 
 networks:
-  privnet:
+  free5gc:
     ipam:
       driver: default
       config:
@@ -369,4 +398,4 @@ networks:
       com.docker.network.bridge.name: br-free5gc
 
 volumes:
-  dbdata:
+  free5gc:
