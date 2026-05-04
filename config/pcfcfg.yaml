@@ -6,15 +6,15 @@ configuration:
   pcfName: PCF # the name of this PCF
   sbi: # Service-based interface information
     scheme: http # the protocol for sbi (http or https)
-    registerIPv4: pcf.free5gc.org # IP used to register to NRF
-    bindingIPv4: pcf.free5gc.org  # IP used to bind the service
+    registerIPv4: pcf.srlabs.mobi # IP used to register to NRF
+    bindingIPv4: pcf.srlabs.mobi  # IP used to bind the service
     port: 8000              # port used to bind the service
     tls: # the local path of TLS key
       pem: cert/pcf.pem # PCF TLS Certificate
       key: cert/pcf.key # PCF TLS Private key
   timeFormat: 2019-01-02 15:04:05 # time format of this PCF
   defaultBdtRefId: BdtPolicyId-   # BDT Reference ID, indicating transfer policies of background data transfer.
-  nrfUri: http://nrf.free5gc.org:8000  # a valid URI of NRF
+  nrfUri: http://nrf.srlabs.mobi:8000  # a valid URI of NRF
   nrfCertPem: cert/nrf.pem
   serviceList:   # the SBI services provided by this PCF, refer to TS 29.507
     - serviceName: npcf-am-policy-control # Npcf_AMPolicyControl service
@@ -26,7 +26,7 @@ configuration:
     - serviceName: npcf-eventexposure       # Npcf_EventExposure service
     - serviceName: npcf-ue-policy-control   # Npcf_UEPolicyControl service
   mongodb:       # the mongodb connected by this PCF
-    name: free5gc                  # name of the mongodb
+    name: free5gc # name of the mongodb
     url: mongodb://db:27017 # a valid URL of the mongodb
   locality: area1 # Name of the location where a set of AMF, SMF, PCF and UPFs are located
 
@@ -35,12 +35,12 @@ configuration:
   metrics:
     enable: false # (Optional, default false)
     scheme: http # (Required) the protocol for metrics (http or https, default https)
-    bindingIPv4: pcf.free5gc.org # (Required) IP used to bind the metrics endpoint (default 0.0.0.0)
+    bindingIPv4: pcf.srlabs.mobi # (Required) IP used to bind the metrics endpoint (default 0.0.0.0)
     port: 9091 # (Optional, default 9091) port used to bind the service
     tls: # (Optional) the local path of TLS key (Could be the same as the sbi ones)
       pem: cert/pcf.pem # PCF TLS Certificate
       key: cert/pcf.key # PCF TLS Private key
-    namespace: free5gc # (Optional, default free5gc)
+    namespace: srlabs # (Optional, default free5gc)
 
 logger: # log output setting
   enable: true # true or false

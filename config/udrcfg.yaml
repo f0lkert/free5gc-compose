@@ -5,8 +5,8 @@ info:
 configuration:
   sbi: # Service-based interface information
     scheme: http # the protocol for sbi (http or https)
-    registerIPv4: udr.free5gc.org # IP used to register to NRF
-    bindingIPv4: udr.free5gc.org  # IP used to bind the service
+    registerIPv4: udr.srlabs.mobi # IP used to register to NRF
+    bindingIPv4: udr.srlabs.mobi  # IP used to bind the service
     port: 8000 # port used to bind the service
     tls: # the local path of TLS key
       pem: cert/udr.pem # UDR TLS Certificate
@@ -15,7 +15,7 @@ configuration:
   mongodb:
     name: free5gc # Database name in MongoDB
     url: mongodb://db:27017 # URL of MongoDB
-  nrfUri: http://nrf.free5gc.org:8000 # a valid URI of NRF
+  nrfUri: http://nrf.srlabs.mobi:8000 # a valid URI of NRF
   nrfCertPem: cert/nrf.pem
 
   # Metrics Configuration
@@ -23,12 +23,12 @@ configuration:
   metrics:
     enable: false # (Optional, default false)
     scheme: http # (Required) the protocol for metrics (http or https, default https)
-    bindingIPv4: udr.free5gc.org # (Required) IP used to bind the metrics endpoint (default 0.0.0.0)
+    bindingIPv4: udr.srlabs.mobi # (Required) IP used to bind the metrics endpoint (default 0.0.0.0)
     port: 9091 # (Optional, default 9091) port used to bind the service
     tls: # (Optional) the local path of TLS key (Could be the same as the sbi ones)
       pem: cert/udr.pem # UDR TLS Certificate
       key: cert/udr.key # UDR TLS Private key
-    namespace: free5gc # (Optional, default free5gc)
+    namespace: srlabs # (Optional, default free5gc)
 
 logger: # log output setting
   enable: true # true or false

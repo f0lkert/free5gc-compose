@@ -6,8 +6,8 @@ configuration:
   smfName: SMF # the name of this SMF
   sbi: # Service-based interface information
     scheme: http # the protocol for sbi (http or https)
-    registerIPv4: smf.free5gc.org # IP used to register to NRF
-    bindingIPv4: smf.free5gc.org # IP used to bind the service
+    registerIPv4: smf.srlabs.mobi # IP used to register to NRF
+    bindingIPv4: smf.srlabs.mobi  # IP used to bind the service
     port: 8000 # Port used to bind the service
     tls: # the local path of TLS key
       key: cert/smf.key # SMF TLS Certificate
@@ -28,23 +28,23 @@ configuration:
             ipv4: 8.8.8.8
             ipv6: 2001:4860:4860::8888
   plmnList: # the list of PLMN IDs that this SMF belongs to (optional, remove this key when unnecessary)
-    - mcc: 208 # Mobile Country Code (3 digits string, digit: 0~9)
-      mnc: 93 # Mobile Network Code (2 or 3 digits string, digit: 0~9)
+    - mcc: 262 # Mobile Country Code (3 digits string, digit: 0~9)
+      mnc: 64  # Mobile Network Code (2 or 3 digits string, digit: 0~9)
   locality: area1 # Name of the location where a set of AMF, SMF, PCF and UPFs are located
   pfcp: # the IP address of N4 interface on this SMF (PFCP)
     # addr config is deprecated in smf config v1.0.3, please use the following config
-    nodeID: smf.free5gc.org # the Node ID of this SMF
-    listenAddr: smf.free5gc.org # the IP/FQDN of N4 interface on this SMF (PFCP)
-    externalAddr: smf.free5gc.org # the IP/FQDN of N4 interface on this SMF (PFCP)
+    nodeID: smf.srlabs.mobi # the Node ID of this SMF
+    listenAddr: smf.srlabs.mobi # the IP/FQDN of N4 interface on this SMF (PFCP)
+    externalAddr: smf.srlabs.mobi # the IP/FQDN of N4 interface on this SMF (PFCP)
     heartbeatInterval: 5s
   userplaneInformation: # list of userplane information
     upNodes: # information of userplane node (AN or UPF)
       gNB1: # the name of the node
         type: AN # the type of the node (AN or UPF)
-        nodeID: gnb.free5gc.org # the Node ID of this gNB
+        nodeID: gnb.srlabs.mobi # the Node ID of this gNB
       I-UPF: # the name of the node
         type: UPF # the type of the node (AN or UPF)
-        nodeID: i-upf.free5gc.org # the Node ID of this UPF
+        nodeID: i-upf.srlabs.mobi # the Node ID of this UPF
         sNssaiUpfInfos: # S-NSSAI information list for this UPF
           - sNssai: # S-NSSAI (Single Network Slice Selection Assistance Information)
               sst: 1 # Slice/Service Type (uinteger, range: 0~255)
@@ -56,17 +56,17 @@ configuration:
         interfaces: # Interface list for this UPF
           - interfaceType: N3 # the type of the interface (N3 or N9)
             endpoints: # the IP address of this N3/N9 interface on this UPF
-              - i-upf.free5gc.org
+              - i-upf.srlabs.mobi
             networkInstances: # Data Network Name (DNN)
               - internet
           - interfaceType: N9 # the type of the interface (N3 or N9)
             endpoints: # the IP address of this N3/N9 interface on this UPF
-              - i-upf.free5gc.org
+              - i-upf.srlabs.mobi
             networkInstances: # Data Network Name (DNN)
               - internet
       PSA-UPF: # the name of the node
         type: UPF # the type of the node (AN or UPF)
-        nodeID: psa-upf.free5gc.org # the Node ID of this UPF
+        nodeID: psa-upf.srlabs.mobi # the Node ID of this UPF
         sNssaiUpfInfos: # S-NSSAI information list for this UPF
           - sNssai: # S-NSSAI (Single Network Slice Selection Assistance Information)
               sst: 1 # Slice/Service Type (uinteger, range: 0~255)
@@ -78,7 +78,7 @@ configuration:
         interfaces: # Interface list for this UPF
           - interfaceType: N9 # the type of the interface (N3 or N9)
             endpoints: # the IP address of this N3/N9 interface on this UPF
-              - psa-upf.free5gc.org
+              - psa-upf.srlabs.mobi
             networkInstances: # Data Network Name (DNN)
               - internet
     links: # the topology graph of userplane, A and B represent the two nodes of each link
@@ -96,7 +96,7 @@ configuration:
     enable: true # true or false
     expireTime: 16s # default is 6 seconds
     maxRetryTimes: 3 # the max number of retransmission
-  nrfUri: http://nrf.free5gc.org:8000 # a valid URI of NRF
+  nrfUri: http://nrf.srlabs.mobi:8000 # a valid URI of NRF
   nrfCertPem: cert/nrf.pem # NRF Certificate
   urrPeriod: 10 # default usage report period in seconds
   urrThreshold: 1000 # default usage report threshold in bytes

@@ -6,16 +6,16 @@ configuration:
   n3iwfInformation:
     globalN3IWFID: # ID used to globally identify an N3IWF
       plmnID: # Public Land Mobile Network ID, <PLMN ID> = <MCC><MNC>
-        mcc: 208 # Mobile Country Code (3 digits string, digit: 0~9)
-        mnc: 93 # Mobile Network Code (2 or 3 digits string, digit: 0~9)
+        mcc: 262 # Mobile Country Code (3 digits string, digit: 0~9)
+        mnc: 64  # Mobile Network Code (2 or 3 digits string, digit: 0~9)
       n3iwfID: 135 # ID used to identify an N3IWF in PLMN (uinteger, range: 0~65535)
-    name: free5GC_N3IWF # The name of this N3IWF
+    name: srlabs_N3IWF # The name of this N3IWF
     supportedTAList: # Tracking Area supported by this N3IWF
       - tac: 000001 # Tracking Area Code (3 bytes hex string, range: 000000~FFFFFF)
         broadcastPlmnList: # Refer to TS 38.413
           - plmnID: # Public Land Mobile Network ID
-              mcc: 208 # Mobile Country Code (3 digits string, digit: 0~9)
-              mnc: 93 # Mobile Network Code (2 or 3 digits string, digit: 0~9)
+              mcc: 262 # Mobile Country Code (3 digits string, digit: 0~9)
+              mnc: 64  # Mobile Network Code (2 or 3 digits string, digit: 0~9)
             taiSliceSupportList: # Network Slice supported in this TAI
               - snssai: # Single Network Slice Selection Assistance Information
                   sst: 1 # Slice/Service Type (1 byte hex string, range: 0~F)
@@ -27,7 +27,7 @@ configuration:
   # --- N2 Interfaces ---
   amfSCTPAddresses: # the IP list of N2 interfaces (SCTP) on AMF when using NGAP
     - ip:
-        - amf.free5gc.org
+        - amf.srlabs.mobi
       port: 38412
   nasTcpPort: 20000 # TCP port which the NAS listens on
 
@@ -41,7 +41,7 @@ configuration:
   # --- N3 Interfaces ---
   n3iwfGtpBindAddress: 10.100.200.15 # IP address of N3 interface (GTP) on this N3IWF
 
-  fqdn: n3iwf.free5gc.org # FQDN of this N3IWF
+  fqdn: n3iwf.srlabs.mobi # FQDN of this N3IWF
 
   # --- Security ---
   privateKey: cert/n3iwf.key # Private key file path
@@ -59,14 +59,15 @@ configuration:
   metrics:
     enable: false # (Optional, default false)
     scheme: http # (Required) the protocol for metrics (http or https, default https)
-    bindingIPv4: n3iwf.free5gc.org # (Required) IP used to bind the metrics endpoint (default 0.0.0.0)
+    bindingIPv4: n3iwf.srlabs.mobi # (Required) IP used to bind the metrics endpoint (default 0.0.0.0)
     port: 9091 # (Optional, default 9091) port used to bind the service
     tls: # (Optional) the local path of TLS key (Could be the same as the sbi ones)
       pem: cert/n3iwf.pem # N3IWF TLS Certificate
       key: cert/n3iwf.key # N3IWF TLS Private key
-    namespace: free5gc # (Optional, default free5gc)
+    namespace: srlabs # (Optional, default free5gc)
 
 logger: # log output setting
   enable: true # true or false
   level: info # how detailed to output, value: trace, debug, info, warn, error, fatal, panic
   reportCaller: false # enable the caller report or not, value: true or false
+
